@@ -1,0 +1,43 @@
+{
+    "schema_description": "Esquema para o dicionário de configuração da FlexibleCNN, projetada para entradas de 3x32x32.",
+    "config_structure": {
+      "conv_layers": {
+        "type": "Lista de Listas/Tuplas",
+        "required": true,
+        "description": "Define a sequência de camadas convolucionais. Cada elemento na lista representa um bloco Conv2d -> ReLU -> Pool.",
+        "format": "[<out_channels::int>, <kernel_size::int>, <stride::int>, <padding::int>]",
+        "example": [
+          [32, 3, 1, 1],
+          [64, 3, 1, 1]
+        ]
+      },
+      "pool_kernel_size": {
+        "type": "Inteiro",
+        "required": false,
+        "description": "Tamanho da janela (kernel) para as camadas de Max Pooling. O pooling é aplicado após cada camada convolucional. Se esta chave for omitida, nenhuma camada de pooling será criada.",
+        "example": 2
+      },
+      "pool_stride": {
+        "type": "Inteiro",
+        "required": false,
+        "description": "O passo (stride) para as camadas de Max Pooling. Se omitido, o valor de 'pool_kernel_size' será usado como padrão. Ineficaz se 'pool_kernel_size' não for definido.",
+        "example": 2
+      },
+      "fc_layers": {
+        "type": "Lista de Listas/Tuplas",
+        "required": false,
+        "description": "Define as camadas ocultas totalmente conectadas (fully-connected) entre o extrator de features e a camada de saída. Se omitido, não haverá camadas ocultas.",
+        "format": "[<out_features::int>, <dropout_rate::float>]",
+        "example": [
+          [512, 0.5],
+          [256, 0.25]
+        ]
+      },
+      "output_size": {
+        "type": "Inteiro",
+        "required": true,
+        "description": "Número de neurônios na camada de saída final, que geralmente corresponde ao número de classes do problema.",
+        "example": 10
+      }
+    }
+  }
